@@ -10,6 +10,6 @@ public class TempController {
     public String hello(Model model){
 
         model.addAttribute("data", "hello!");
-        return "hello"; // hello.html로 찾아가서 렌더링하라는 의미
+        return "hello";
     }
 }
