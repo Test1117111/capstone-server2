@@ -12,13 +12,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
-
+public class Comment {
     @Id
-    private String postId;
-    private String boardName;
+    private String commentId;
+    private String comment;
     private String userEmail;
-    private String title;
-    private String body;
-    private String type;
+    private String postId;
 }

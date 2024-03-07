@@ -28,4 +28,21 @@ public class PostService {
 
         return postDTOs;
     }
+
+    public PostDTO savePost(PostDTO newPost) {
+        // DTO를 엔티티로 변환
+        Post post = new Post(newPost.getPostId(), newPost.getBoardName(), newPost.getUserEmail(), newPost.getTitle(), newPost.getBody(), newPost.getType());
+
+        // 저장하고 결과를 엔티티로 받음
+        Post savedPost = postRepository.save(post);
+
+        // 저장된 엔티티를 DTO로 변환
+        PostDTO savedPostDTO = new PostDTO(savedPost.getPostId(), savedPost.getBoardName(), savedPost.getUserEmail(), savedPost.getTitle(), savedPost.getBody(), savedPost.getType());
+
+        return savedPostDTO;
+    }
+
+    public void deletePost(String postId) {
+        postRepository.deleteById(postId);
+    }
 }
