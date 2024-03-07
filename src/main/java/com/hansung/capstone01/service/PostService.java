@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 @Service
 public class PostService {
 
-    @Autowired
     private final PostRepository postRepository;
 
     public PostService(PostRepository postRepository) {
