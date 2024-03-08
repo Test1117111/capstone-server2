@@ -2,6 +2,7 @@ package com.hansung.capstone01.controller;
 
 import com.hansung.capstone01.DTO.CommentDTO;
 import com.hansung.capstone01.service.CommentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -9,31 +10,33 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@Slf4j
+@RestController
 @RequestMapping("/comments")
 public class CommentController {
 
     private final CommentService CommentService;
 
-    public CommentController(CommentService CommmentService) {
-        this.CommentService = CommmentService;
+    public CommentController(CommentService CommentService) {
+        this.CommentService = CommentService;
     }
 
-    @GetMapping("/")
-    public List<CommentDTO> getCommments(@RequestParam String postId){
-        List<CommentDTO> Commments = CommentService.findByPostId(postId);
-        return Commments;
+    @GetMapping
+    public List<CommentDTO> getComments(@RequestParam(name = "postId") String postId){
+        List<CommentDTO> Comments = CommentService.findByPostId(postId);
+        return Comments;
     }
 
     @PostMapping
-    public ResponseEntity<CommentDTO> createCommment(@RequestBody CommentDTO newCommment){
-        CommentDTO savedCommment = CommentService.saveComment(newCommment);
-        return new ResponseEntity<>(savedCommment, HttpStatus.CREATED);
+    public ResponseEntity<CommentDTO> createComment(@RequestBody CommentDTO newComment){
+        CommentDTO savedComment = CommentService.saveComment(newComment);
+        return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{CommmentId}")
-    public ResponseEntity<Void> deleteCommment(@PathVariable String CommmentId){
-        CommentService.deleteComment(CommmentId);
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<Void> deleteComment(@PathVariable(name = "commentId") String commentId){
+        log.info("commentId = " + commentId);
+        CommentService.deleteComment(commentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -3,6 +3,7 @@ package com.hansung.capstone01.controller;
 import com.hansung.capstone01.DTO.PostDTO;
 import com.hansung.capstone01.domain.Post;
 import com.hansung.capstone01.service.PostService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -10,9 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
-@Controller
-@RequestMapping("/post")
+@Slf4j
+@RestController
+@RequestMapping("/posts")
 public class PostController {
 
     private final PostService postService;
@@ -21,8 +24,8 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/")
-    public List<PostDTO> getPosts(@RequestParam String boardName){
+    @GetMapping
+    public List<PostDTO> getPosts(@RequestParam(name = "boardName") String boardName){
         List<PostDTO> posts = postService.findByBoardName(boardName);
         return posts;
     }
@@ -34,7 +37,7 @@ public class PostController {
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<Void> deletePost(@PathVariable String postId){
+    public ResponseEntity<Void> deletePost(@PathVariable(name = "postId") String postId){
         postService.deletePost(postId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -23,7 +23,7 @@ public class PostService {
 
         // Post 엔티티를 PostDTO로 변환
         List<PostDTO> postDTOs = posts.stream()
-                .map(post -> new PostDTO(post.getPostId(), post.getBoardName(), post.getTitle(), post.getUserEmail(), post.getBody(), post.getType()))
+                .map(post -> new PostDTO(post.getPostId(), post.getBoardName(), post.getUserEmail(), post.getTitle(), post.getBody(), post.getType()))
                 .collect(Collectors.toList());
 
         return postDTOs;
