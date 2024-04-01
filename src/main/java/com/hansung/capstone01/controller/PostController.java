@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/posts")
 public class PostController {
 
